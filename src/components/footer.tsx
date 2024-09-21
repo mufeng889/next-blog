@@ -3,13 +3,13 @@
 import { POSTS } from "@/lib/constants";
 import { Icons } from "./icons";
 import Link from "next/link";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-// import { createSubscriber } from "@/lib/actions";
-import { useFormState } from "react-dom";
+// import { Input } from "./ui/input";
+// import { Button } from "./ui/button";
+// // import { createSubscriber } from "@/lib/actions";
+// import { useFormState } from "react-dom";
 
 export default function Footer() {
-  const initialState = { message: "", errors: {} };
+  // const initialState = { message: "", errors: {} };
   // const [state, dispatch] = useFormState(createSubscriber, initialState);
   return (
     <footer className="bg-gray-100 py-8 dark:bg-gray-800 mt-10">

@@ -8,7 +8,7 @@ import type { LinkProps } from 'next/link'
 import { highlight } from "sugar-high";
 import type { ReactNode } from 'react'
 
-function Blockquote(props: any) {
+function Blockquote(props: Omit<React.ComponentProps<'blockquote'>, 'className'>) {
   return (
     <blockquote
       className="bg-blue-200 dark:bg-blue-950 dark:bg-opacity-30 bg-opacity-30 p-4 rounded-md blockquote"
@@ -17,8 +17,8 @@ function Blockquote(props: any) {
   );
 }
 
-function Code({ children, ...props }: any) {
-  const codeHTML = highlight(children);
+function Code({ children, ...props }: React.ComponentProps<'code'>) {
+  const codeHTML = highlight(children as string);
 
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
@@ -57,7 +57,7 @@ function slugify(str: string) {
 
 function createHeading(level: number) {
   const Heading = ({ children }: { children: ReactNode }) => {
-    const slug = slugify(children);
+    const slug = slugify(children as string);
 
     return React.createElement(
       `h${level}`,
@@ -77,11 +77,13 @@ function createHeading(level: number) {
   return Heading;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Table({ data }: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const headers = data.headers.map((header: any, index: any) => (
     <th key={index}>{header}</th>
   ));
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const rows = data.rows.map((cell: any, cellIndex: any) => (
     <td key={cellIndex}>{cell}</td>
   ));
@@ -108,7 +110,7 @@ const components = {
   code: Code,
   blockquote: Blockquote,
   Table,
-};
+} as MDXRemoteProps['components'];
 
 export default function CustomMDX(props: MDXRemoteProps) {
   return (
