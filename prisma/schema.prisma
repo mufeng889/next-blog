@@ -10,5 +10,21 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Blog {
+  id          Int       @id @default(autoincrement())
+  slug        String    @unique
+  title       String
+  category    String
+  view_count  Int       @default(1)
+  updatedAt   DateTime  @default(now())    
+}
+
+model Subscriber {
+  id              Int     @id @default(autoincrement())
+  email           String  @unique
+  is_subscribed   Boolean @default(true)
 }
