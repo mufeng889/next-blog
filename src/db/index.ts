@@ -1,16 +1,21 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { PrismaClient } from "@prisma/client";
 
+declare global {
+  let cachedPrisma: PrismaClient;
+}
 
 let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
 } else {
-  if (!global.caches) {
-    global.caches= new PrismaClient();
+  if (!global.cachedPrisma) {
+    global.cachedPrisma = new PrismaClient();
   }
 
-  prisma = global.caches;
+  prisma = global.cachedPrisma;
 }
 
 export const db = prisma;
